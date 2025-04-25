@@ -1,20 +1,15 @@
 <script>
-  import Counter from "./Counter.svelte";
+  import Card from "$lib/components/Card.svelte";
 </script>
 
-<svelte:head>
-  <title>Página Inicial</title>
-  <meta name="description" content="Svelte demo app" />
-</svelte:head>
-
-<section></section>
+<h1>Tela de login</h1>
+<Card>
+  <form action="">
+    <input type="text" name="" id="" />
+    <input type="password" name="" id="" />
+    <input type="submit" value="Enviar" />
+  </form>
+</Card>
 
 <style>
-  section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex: 0.6;
-  }
 </style>

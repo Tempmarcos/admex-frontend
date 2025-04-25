@@ -1,5 +1,6 @@
 <script>
-  import "../app.css";
+  import Sidebar from "$lib/components/Sidebar.svelte";
+  import "../../app.css";
 
   /** @type {{children: import('svelte').Snippet}} */
   let { children } = $props();
@@ -9,6 +10,7 @@
   <main>
     {@render children()}
   </main>
+  <Sidebar />
 </div>
 
 <style>
@@ -23,6 +25,6 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-color: #d9d9d9;
+    max-width: 64rem;
   }
 </style>
