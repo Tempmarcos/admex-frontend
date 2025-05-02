@@ -1,4 +1,4 @@
-const BASE_URL = "https://seu-servidor.com/api";
+export const BASE_URL = "http://localhost:3333/";
 
 /**
  * @param {any} endpoint

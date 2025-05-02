@@ -8,8 +8,8 @@
 </svelte:head>
 
 <section>
-  <Card>
-    <h1>oii</h1>
+  <Card width="300px" height="200px">
+    <h1>Bem-vindo {localStorage.getItem("usuario")}</h1>
   </Card>
 </section>
 
