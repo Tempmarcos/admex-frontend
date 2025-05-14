@@ -75,9 +75,9 @@
 </script>
 
 <main>
-  <Card width="400px" , height="300px">
+  <Card>
     <div class="form">
-      <h1>Nome: {$usuario.nome}</h1>
+      <h1>Admex</h1>
       <form on:submit={handleSubmit}>
         <input type="email" name="email" id="email" required placeholder="" />
         <label for="email">E-mail</label>
@@ -91,7 +91,7 @@
         />
         <label for="password">Senha</label>
         <button type="submit">Enviar</button>
-        <em>Não tem conta? Faça seu <a href="/inicio">cadastro</a></em>
+        <em>Não tem conta? Faça seu <a href="/cadastro">cadastro</a></em>
       </form>
     </div>
   </Card>
@@ -109,8 +109,8 @@
     flex-direction: column;
   }
   .form {
-    width: 100%;
-    height: 100%;
+    width: 400px;
+    height: 300px;
     display: flex;
     flex-flow: column;
     justify-content: center;
@@ -123,7 +123,7 @@
   }
 
   form label {
-    transform: translate(-80px, -20px);
+    transform: translate(-75px, -20px);
     /* transform: translateX(-80px); */
     pointer-events: none;
     transition: 1s;
@@ -135,10 +135,22 @@
     transform: translate(-80px, -40px);
     color: black;
   }
+  form input:focus,
+  form input:valid,
+  form input:not(:placeholder-shown) {
+    border-bottom: 1px solid transparent;
+  }
 
   form input {
-    border: 0px 0px 0px 0px solid black;
+    border: none;
+    border-bottom: 1px solid black;
+    padding: 2px;
     width: 200px;
     outline: none;
+  }
+
+  form a {
+    color: #ff3e00;
+    text-decoration: none;
   }
 </style>

@@ -2,7 +2,7 @@
   let { width, height, children } = $props();
 </script>
 
-<div class="card" style="width: {width}; height: {height}">
+<div class="card">
   {@render children?.()}
 </div>
 
@@ -11,5 +11,7 @@
     background-color: #fff;
     border-radius: 10px;
     padding: 5px;
+    display: flex;
+    flex-flow: wrap;
   }
 </style>

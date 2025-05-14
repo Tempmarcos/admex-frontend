@@ -1,5 +1,6 @@
 <script>
   import Card from "$lib/components/Card.svelte";
+  import { usuario, token } from "$lib/stores/auth";
 </script>
 
 <svelte:head>
@@ -9,7 +10,7 @@
 
 <section>
   <Card width="300px" height="200px">
-    <h1>Bem-vindo {localStorage.getItem("usuario")}</h1>
+    <h1>Bem-vindo {$usuario.nome}</h1>
   </Card>
 </section>
 
