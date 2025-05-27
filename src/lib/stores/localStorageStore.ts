@@ -5,14 +5,22 @@ export const localStorageStore = <T>(key: string, initialValue: T): Writable<T> 
 
 	if (typeof window !== 'undefined') {
 		const storedValue = localStorage.getItem(key);
-		initial = storedValue ? JSON.parse(storedValue) : initialValue;
+		try {
+			initial = storedValue ? JSON.parse(storedValue) : initialValue;
+		} catch (e) {
+			initial = storedValue as unknown as T;
+		}
 	}
 
 	const store = writable<T>(initial);
 
 	if (typeof window !== 'undefined') {
 		store.subscribe(value => {
-			localStorage.setItem(key, JSON.stringify(value));
+			if (typeof value === 'string') {
+				localStorage.setItem(key, value);
+			} else {
+				localStorage.setItem(key, JSON.stringify(value));
+			}
 		});
 	}
 
