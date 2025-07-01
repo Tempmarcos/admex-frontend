@@ -1,5 +1,14 @@
 <script>
+  // @ts-nocheck
+
   import { page } from "$app/state";
+  import { usuario, token } from "$lib/stores/auth";
+
+  $: userPermissions = $usuario?.permissoes || [];
+
+  function hasPermission(permission) {
+    return userPermissions.includes(permission);
+  }
 </script>
 
 <div class="sidebar">
@@ -9,16 +18,22 @@
       <li aria-current={page.url.pathname === "/inicio" ? "page" : undefined}>
         <a href="/inicio">Início</a>
       </li>
-      <li aria-current={page.url.pathname === "/about" ? "page" : undefined}>
-        <a href="/usuarios">Usuários</a>
-      </li>
-      <li
-        aria-current={page.url.pathname.startsWith("/sverdle")
-          ? "page"
-          : undefined}
-      >
-        <a href="/sverdle">Itens</a>
-      </li>
+      {#if hasPermission("verUsuarios")}
+        <li
+          aria-current={page.url.pathname === "/usuarios" ? "page" : undefined}
+        >
+          <a href="/usuarios">Usuários</a>
+        </li>
+      {/if}
+      {#if hasPermission("verItens")}
+        <li
+          aria-current={page.url.pathname.startsWith("/itens")
+            ? "page"
+            : undefined}
+        >
+          <a href="/itens">Itens</a>
+        </li>
+      {/if}
     </ul>
   </nav>
   <div class="suporte"></div>

@@ -1,31 +1,29 @@
 import { writable } from "svelte/store";
+import { browser } from "$app/environment";
 
-export const isLoggedIn = writable(false); // Começa como 'false', indica que o usuário não está logado
+export const token = writable<string | null>(null);
+export const usuario = writable<any>(null);
 
-// Exemplo de como você pode configurar ao verificar um token
-export const checkLoginStatus = () => {
-  const token = localStorage.getItem("authToken");
-  isLoggedIn.set(!!token); // Se existir um token, o usuário está logado
-};
+if (browser) {
+  const storedToken = localStorage.getItem("token");
+  const storedUser = localStorage.getItem("usuario");
 
-export const usuario = writable(
-  localStorage.getItem('usuario') ? JSON.parse(localStorage.getItem('usuario')!) : null
-);
+  if (storedToken) token.set(storedToken);
+  if (storedUser) usuario.set(JSON.parse(storedUser));
 
-export const token = writable(localStorage.getItem('token') || null);
+  usuario.subscribe(value => {
+    if (value) {
+      localStorage.setItem('usuario', JSON.stringify(value));
+    } else {
+      localStorage.removeItem('usuario');
+    }
+  });
 
-usuario.subscribe(value => {
-  if (value) {
-    localStorage.setItem('usuario', JSON.stringify(value));
-  } else {
-    localStorage.removeItem('usuario');
-  }
-});
-
-token.subscribe(value => {
-  if (value) {
-    localStorage.setItem('token', value);
-  } else {
-    localStorage.removeItem('token');
-  }
-});
+  token.subscribe(value => {
+    if (value) {
+      localStorage.setItem('token', value);
+    } else {
+      localStorage.removeItem('token');
+    }
+  });
+}

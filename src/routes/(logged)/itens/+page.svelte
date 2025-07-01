@@ -3,62 +3,36 @@
 
   import Card from "$lib/components/Card.svelte";
   import { usuario, token } from "$lib/stores/auth";
-  import { BASE_URL, FRONTEND_LINK } from "../../api";
+  import { BASE_URL } from "../../api";
 
-  let users = [];
-
-  async function gerarLink() {
-    try {
-      let linkInput = document.getElementById("link");
-      let tokenValue;
-      token.subscribe((value) => {
-        tokenValue = value;
-      });
-      // console.log(tokenValue);
-      const response = await fetch(BASE_URL + "users/gerar-convite", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${tokenValue}`,
-        },
-      });
-      if (!response.ok) {
-        throw new Error("Erro na requisição: " + response.status);
-      }
-      const dados = await response.text();
-      linkInput.value = FRONTEND_LINK + "/cadastro/user/" + dados;
-      // console.log(dados);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  let itens = [];
 
   //FAZER FETCH DOS USERS
-  async function getUsers() {
+  async function getItens() {
     try {
       let tokenValue;
       token.subscribe((value) => {
         tokenValue = value;
       });
       // console.log(tokenValue);
-      const response = await fetch(BASE_URL + "users", {
+      const response = await fetch(BASE_URL + "itens", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${tokenValue}`,
         },
       });
-      if (!response.ok) {
-        throw new Error("Erro na requisição: " + response.status);
-      }
+      // if (!response.ok) {
+      //   throw new Error("Erro na requisição: " + response.status);
+      // }
       const dados = await response.json();
       console.log(dados);
-      users = dados.sort((a, b) => a.nome.localeCompare(b.nome));
+      itens = dados.sort((a, b) => a.nome.localeCompare(b.nome));
     } catch (error) {
       console.log(error);
     }
   }
-  getUsers();
+  getItens();
 
   $: userPermissions = $usuario?.permissoes || [];
 
@@ -76,8 +50,8 @@
   {#if hasPermission("criarUsuarios")}
     <div class="addUser">
       <h1>Adicionar usuário</h1>
-      <button onclick={gerarLink}>Gerar Link</button>
-      <input id="link" type="text" readonly />
+      <button>Gerar Link</button>
+      <input type="text" readonly />
     </div>
   {/if}
   {#each users as user}
