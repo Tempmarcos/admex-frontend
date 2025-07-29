@@ -8,53 +8,14 @@
   import { validateEmail } from "$lib/utils/validarEmail";
   import { checkRegistroExists } from "$lib/utils/checkRegistroExists";
   import { checkEmailExists } from "$lib/utils/checkEmailExists";
-
-  let estados = [];
-  let cidades = [];
-
-  async function fetchEstadosBrasileiros() {
-    try {
-      const resposta = await fetch(
-        "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
-      );
-      if (!resposta.ok) {
-        const texto = await resposta.text();
-        console.error("Erro na resposta da API:", resposta.status, texto);
-        return;
-      }
-      const data = await resposta.json();
-      estados = data.sort((a, b) => a.nome.localeCompare(b.nome));
-      // console.log(estados);
-    } catch (error) {
-      throw error;
-    }
-  }
-  fetchEstadosBrasileiros();
-
-  async function carregarCidades(event) {
-    let sigla;
-    try {
-      sigla = event.target.value;
-    } catch {
-      sigla = event;
-    }
-    const estado = estados.find((e) => e.sigla === sigla);
-    console.log(estado);
-    try {
-      const res = await fetch(
-        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estado.id}/municipios`
-      );
-      const data = await res.json();
-      cidades = data.sort((a, b) => a.nome.localeCompare(b.nome));
-      console.log(cidades);
-    } catch (error) {
-      console.error("Erro ao carregar cidades:", error);
-    }
-  }
+  import { fetchEstados } from "$lib/utils/fetchEstados";
+  import { cidades, estados } from "$lib/stores/cadastroStore";
+  import { get } from "svelte/store";
+  import { fetchCidades } from "$lib/utils/fetchCidades";
+  import '$lib/styles/form.css'
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const formData = new FormData(event.target);
     const email = formData.get("email");
     const password = formData.get("password");
@@ -89,8 +50,10 @@
       console.log(error);
     }
   };
-  onMount(() => {
+  onMount(async () => {
     try {
+      await fetchEstados();
+   
       const emailInput = document.getElementById("email");
       const emailStatus = document.getElementById("email-status");
 
@@ -287,20 +250,7 @@
   <Card>
     <div class="container">
       <form onsubmit={handleSubmit} name="cadastro">
-        <div id="parte1">
-          <h1>Crie seu usuário admin</h1>
-          <label for="nome">Nome</label>
-          <input type="text" name="nome" required />
-          <label for="email">Email</label>
-          <input type="email" name="email" required id="email" />
-          <p id="email-status" style="margin-block: 0;"></p>
-          <label for="senha">Senha</label>
-          <input type="password" name="senha" minlength="6" required />
-          <label for="confirmarSenha">Confirmar senha</label>
-          <input type="password" name="confirmarSenha" minlength="6" required />
-          <!-- Criar uma função para verificar se as senhas são iguais -->
-          <button type="button" onclick={() => nextParte(1)}>Próximo</button>
-        </div>
+        <!-- <button type="button" onclick={() => nextParte(1)}>Próximo</button> -->
         <div id="parte2" style="display: none;">
           <h1>Crie sua empresa</h1>
           <label for="registro">CNPJ</label>
@@ -378,16 +328,16 @@
           />
           <p id="cep-status" style="margin-block: 0;"></p>
           <label for="estado">Estado</label>
-          <select name="estado" id="estado" required onchange={carregarCidades}>
+          <select name="estado" id="estado" required onchange={fetchCidades}>
             <option value="">Selecione</option>
-            {#each estados as estado}
+            {#each $estados as estado}
               <option value={estado.sigla}>{estado.nome}</option>
             {/each}
           </select>
           <label for="cidade">Cidade</label>
           <select name="cidade" id="cidade" required>
             <option value="">Selecione</option>
-            {#each cidades as cidade}
+            {#each $cidades as cidade}
               <option value={cidade.nome}>{cidade.nome}</option>
             {/each}
           </select>
@@ -407,77 +357,4 @@
       </form>
     </div>
   </Card>
-  <script>
-  </script>
 </main>
-
-<style>
-  select {
-    padding: 5px;
-    max-width: 200px;
-  }
-
-  span {
-    display: flex;
-    justify-content: center;
-  }
-  button {
-    padding: 10px;
-    margin: 5px;
-    border: none;
-    background-color: chartreuse;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  button:hover {
-    background-color: rgb(89, 176, 1);
-  }
-  main {
-    height: 100%;
-    height: 100vh;
-    width: 100%;
-    background-color: #363636;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  .container {
-    height: 100%;
-    width: 400px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .container form {
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-  }
-  form input,
-  form select {
-    margin-bottom: 10px;
-  }
-  .title {
-    color: white;
-    font-size: 3.6rem;
-  }
-  .sair {
-    position: fixed;
-    left: 1vw;
-    top: 1vh;
-  }
-  .sair a {
-    text-decoration: none;
-    color: white;
-  }
-
-  form div {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-flow: column;
-    margin-bottom: 10px;
-  }
-</style>
