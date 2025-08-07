@@ -17,7 +17,7 @@ export async function fetchCidades(event: any) {
       );
       const data = await res.json();
       cidades.set(data.sort((a: any, b: any) => a.nome.localeCompare(b.nome)));
-      console.log(cidades);
+      //console.log(get(cidades));
     } catch (error) {
       console.error("Erro ao carregar cidades:", error);
     }

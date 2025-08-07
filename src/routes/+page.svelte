@@ -1,6 +1,4 @@
 <script lang="ts">
-  // @ts-nocheck
-
   import Card from "$lib/components/Card.svelte";
   import { localStorageStore } from "$lib/stores/localStorageStore";
   import { BASE_URL } from "./api";
@@ -10,7 +8,7 @@
     nome: string;
     id: number;
     email: string;
-    permissoes: Array;
+    permissoes: string[];
     created_at: string;
     updatedAt: string;
     perfil: object;
@@ -25,8 +23,8 @@
   });
 
   const token = localStorageStore<string>("token", "");
-
-  const handleSubmit = (event) => {
+ 
+  const handleSubmit = (event : any) => {
     event.preventDefault();
 
     const formData = new FormData(event.target);
@@ -42,7 +40,7 @@
     login(data);
   };
 
-  async function login(data) {
+  async function login(data : any) {
     try {
       const response = await fetch(BASE_URL + "login", {
         method: "POST",

@@ -1,4 +1,4 @@
-import { BASE_URL } from "../../routes/api";
+import { BASE_URL } from "../../../routes/api";
 
 export async function checkRegistroExists(registro: string) {
       const data = JSON.stringify({
@@ -17,10 +17,12 @@ export async function checkRegistroExists(registro: string) {
         console.error("Erro:", error);
         return null;
     }
-      const dados = await response!.json();
+      const dados = await response?.json();
       if (dados === false) {
         return false;
-      } else {
+      } else if (dados === true){
         return true;
+      } else {
+        return null;
       }
     }

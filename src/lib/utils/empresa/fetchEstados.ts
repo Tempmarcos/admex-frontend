@@ -1,4 +1,5 @@
 import { estados } from "$lib/stores/cadastroStore";
+import { get } from "svelte/store";
 
 export async function fetchEstados() {
     try {
@@ -13,7 +14,7 @@ export async function fetchEstados() {
       const data = await resposta.json();
       estados.set(data.sort((a: any, b: any) => a.nome.localeCompare(b.nome)));
       
-      //console.log(estados);
+      //console.log(get(estados));
     } catch (error) {
       throw error;
     }

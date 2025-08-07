@@ -3,6 +3,7 @@
   import AdminForm from "./AdminForm.svelte";
   import EmpresaForm from "./EmpresaForm.svelte";
   import EnderecoForm from "./EnderecoForm.svelte";
+  import '$lib/styles/form.css'
 
   let etapa = 1;
   function avancar() {
@@ -13,83 +14,23 @@
   }
 </script>
 <Card height='100%' width='400px'>
+  <div class="containerCard">
   {#if etapa === 1}
     <AdminForm />
-    <button on:click={avancar}>Avançar</button>
+    <span><button on:click={avancar}>Avançar</button></span>
   {:else if etapa === 2}
     <EmpresaForm />
-    <button on:click={voltar}>Voltar</button>
-    <button on:click={avancar}>Avançar</button>
+    <span><button on:click={voltar}>Voltar</button>
+    <button on:click={avancar}>Avançar</button></span>
   {:else if etapa === 3}
     <EnderecoForm />
-    <button on:click={voltar}>Voltar</button>
+    <span><button on:click={voltar}>Voltar</button></span>
   {/if}
+  </div>
 </Card>
 <style>
-  select {
-    padding: 5px;
-    max-width: 200px;
-  }
-  span {
-    display: flex;
-    justify-content: center;
-  }
-  button {
-    padding: 10px;
-    margin: 5px;
-    border: none;
-    background-color: chartreuse;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  button:hover {
-    background-color: rgb(89, 176, 1);
-  }
-  main {
-    height: 100%;
-    height: 100vh;
-    width: 100%;
-    background-color: #363636;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  .container {
-    height: 100%;
-    width: 400px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .container form {
+  .containerCard {
     display: flex;
     flex-flow: column;
-    align-items: center;
-  }
-  form input,
-  form select {
-    margin-bottom: 10px;
-  }
-  .title {
-    color: white;
-    font-size: 3.6rem;
-  }
-  .sair {
-    position: fixed;
-    left: 1vw;
-    top: 1vh;
-  }
-  .sair a {
-    text-decoration: none;
-    color: white;
-  }
-  form div {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-flow: column;
-    margin-bottom: 10px;
   }
 </style>

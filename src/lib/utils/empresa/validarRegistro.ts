@@ -1,6 +1,6 @@
-export function validateRegistro(registro : string) {
-        if(registro == '') return false;
-     
+export function validateRegistro(registro : string | number) {
+    if(typeof registro == "number") registro = registro.toString()
+    if(registro == '') return false;
     if (registro.length != 14)
         return false;
  

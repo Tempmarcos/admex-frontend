@@ -15,10 +15,17 @@ export async function checkEmailExists(email: string) {
           console.error("Erro:", error);
           return null;
         });
-        const dados = await response!.json();
-        if (dados === false) {
-          return false;
-        } else {
-          return true;
+        try{
+          const dados = await response?.json();
+          if (dados === false) {
+            return false;
+          } else if (dados === true){
+            return true;
+          } else {
+            return null;
+          }
+        } catch (e) {
+          console.error("Erro ao interpretar JSON:", e);
+          return null;
         }
       }
