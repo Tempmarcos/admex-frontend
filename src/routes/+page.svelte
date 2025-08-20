@@ -1,29 +1,7 @@
 <script lang="ts">
   import Card from "$lib/components/Card.svelte";
-  import { localStorageStore } from "$lib/stores/localStorageStore";
-  import { BASE_URL } from "./api";
-  import { goto } from "$app/navigation";
+  import { login } from "$lib/utils/login";
 
-  const usuario = localStorageStore<{
-    nome: string;
-    id: number;
-    email: string;
-    permissoes: string[];
-    created_at: string;
-    updatedAt: string;
-    perfil: object;
-  }>("usuario", {
-    id: 0,
-    nome: "",
-    email: "",
-    permissoes: [],
-    created_at: "",
-    updatedAt: "",
-    perfil: {},
-  });
-
-  const token = localStorageStore<string>("token", "");
- 
   const handleSubmit = (event : any) => {
     event.preventDefault();
 
@@ -31,49 +9,14 @@
     const email = formData.get("email");
     const password = formData.get("password");
 
-    // console.log(email, password);
-    const data = JSON.stringify({
-      email: email,
-      senha: password,
-    });
-    // console.log(data);
-    login(data);
-  };
-
-  async function login(data : any) {
-    try {
-      const response = await fetch(BASE_URL + "login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: data,
-      });
-      if (!response.ok) {
-        throw new Error("Erro na requisição: " + response.status);
-      }
-      const dados = await response.json();
-      const user = dados.loginResponse;
-      $usuario = {
-        id: user.id,
-        nome: user.nome,
-        perfil: user.perfil,
-        permissoes: user.permissoes,
-        created_at: user.created_at,
-        updatedAt: user.updatedAt,
-      };
-
-      $token = user.token;
-      console.log("Dados recebidos:", dados);
-      await goto("/inicio");
-    } catch (error) {
-      console.error("Erro ao buscar dados: ", error);
+    if (typeof email === "string" && typeof password === "string") {
+      login(email, password);
     }
-  }
+  };
 </script>
 
 <main>
-  <Card>
+  <Card height='100%' width='100%'>
     <div class="form">
       <h1>Admex</h1>
       <form on:submit={handleSubmit}>

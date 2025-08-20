@@ -7,7 +7,7 @@
     $: erroSenha = $senhaInputErro;
 
     function validarSenhas() {
-        if ($dadosCadastro.senha && $confirmar_senha && $dadosCadastro.senha !== $confirmar_senha) {
+        if ($dadosCadastro.User.senha && $confirmar_senha && $dadosCadastro.User.senha !== $confirmar_senha) {
             $senhaInputErro= "As senhas não coincidem.";
         } else {
             $senhaInputErro = "";
@@ -19,7 +19,7 @@
         clearTimeout(debounceTimeout);
         debounceTimeout = setTimeout(() => {
             (async () => {
-            const email = $dadosCadastro.email;
+            const email = $dadosCadastro.User.email;
             // console.log(email) 
             if (validateEmail(email)) {
                 const resposta = await checkEmailExists(email);
@@ -41,15 +41,15 @@
     <form>
     <h1>Crie seu usuário admin</h1>
     <label for="nome">Nome</label>
-    <input type="text" name="nome" bind:value={$dadosCadastro.nome} required />
+    <input type="text" name="nome" bind:value={$dadosCadastro.User.nome} required />
     <label for="email">Email</label>
-    <input type="email" name="email" bind:value={$dadosCadastro.email} required id="email" oninput={handleInputEmail}/>
+    <input type="email" name="email" bind:value={$dadosCadastro.User.email} required id="email" oninput={handleInputEmail}/>
     {#if $mensagemEmail}
         <p id="email-status" style="margin-block: 0; color: {$mensagemEmail.cor}">{$mensagemEmail.mensagem}</p>
     {/if}
     <label for="senha">Senha</label>
     <input type="password" name="senha"
-     bind:value={$dadosCadastro.senha} oninput={validarSenhas} minlength="6" required />
+     bind:value={$dadosCadastro.User.senha} oninput={validarSenhas} minlength="6" required />
     <label for="confirmarSenha">Confirmar senha</label>
     <input type="password"
     bind:value={$confirmar_senha} oninput={validarSenhas} 

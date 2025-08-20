@@ -14,6 +14,9 @@
     border-radius: 5px;
     cursor: pointer;
   }
+  button:disabled {
+    filter: grayscale(0.5);
+  }
   button:hover {
     background-color: rgb(89, 176, 1);
   }

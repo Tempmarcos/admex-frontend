@@ -10,11 +10,13 @@ export async function processarCep(codigo_postal: string) {
     if (resposta) {
         dadosCadastro.update((dados) => ({
             ...dados,
-            endereco: {
-                ...dados.endereco,
-                logradouro: resposta.street,
-                estado: resposta.state,
-                cidade: resposta.city
+            DadosGerais: {...dados.DadosGerais,
+                endereco: {
+                    ...dados.DadosGerais.endereco,
+                    logradouro: resposta.street,
+                    estado: resposta.state,
+                    cidade: resposta.city
+                }
             }
         }))
 
