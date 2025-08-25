@@ -1,72 +1,19 @@
-<script>
-  // @ts-nocheck
-
+<script lang="ts">
   import Card from "$lib/components/Card.svelte";
-  import { usuario, token } from "$lib/stores/auth";
-  import { BASE_URL, FRONTEND_LINK } from "../../api";
+  import { gerarLink } from "$lib/utils/user/gerarLink";
+  import { getUsers } from "$lib/utils/user/getUsers";
+  import { hasPermission } from "$lib/utils/user/hasPermission";
+  import { onMount } from "svelte";
 
-  let users = [];
-
-  async function gerarLink() {
-    try {
-      let linkInput = document.getElementById("link");
-      let tokenValue;
-      token.subscribe((value) => {
-        tokenValue = value;
-      });
-      // console.log(tokenValue);
-      const response = await fetch(BASE_URL + "users/gerar-convite", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${tokenValue}`,
-        },
-      });
-      if (!response.ok) {
-        throw new Error("Erro na requisição: " + response.status);
-      }
-      const dados = await response.text();
-      linkInput.value = FRONTEND_LINK + "/cadastro/user/" + dados;
-      // console.log(dados);
-    } catch (error) {
-      console.log(error);
-    }
+  let users : {id: string, nome: string}[] | [] = [];
+  let link = '';
+  async function handleGerarLink(){
+    link = await gerarLink();
   }
-
-  //FAZER FETCH DOS USERS
-  async function getUsers() {
-    try {
-      let tokenValue;
-      token.subscribe((value) => {
-        tokenValue = value;
-      });
-      // console.log(tokenValue);
-      const response = await fetch(BASE_URL + "users", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${tokenValue}`,
-        },
-      });
-      if (!response.ok) {
-        throw new Error("Erro na requisição: " + response.status);
-      }
-      const dados = await response.json();
-      console.log(dados);
-      users = dados.sort((a, b) => a.nome.localeCompare(b.nome));
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  getUsers();
-
-  $: userPermissions = $usuario?.permissoes || [];
-
-  function hasPermission(permission) {
-    return userPermissions.includes(permission);
-  }
+  onMount(async ()=> {
+    users = await getUsers();
+  })
 </script>
-
 <svelte:head>
   <title>Usuários</title>
   <meta name="description" content="Svelte demo app" />
@@ -76,10 +23,11 @@
   {#if hasPermission("criarUsuarios")}
     <div class="addUser">
       <h1>Adicionar usuário</h1>
-      <button onclick={gerarLink}>Gerar Link</button>
-      <input id="link" type="text" readonly />
+      <button onclick={handleGerarLink}>Gerar Link</button>
+      <input id="link" type="text" readonly value={link}/>
     </div>
   {/if}
+  <h1>Usuários:</h1>
   {#each users as user}
     <div class="userCard">
       <h1>{user.nome}</h1>

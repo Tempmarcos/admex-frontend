@@ -1,6 +1,6 @@
 <script>
   import Card from "$lib/components/Card.svelte";
-  import { usuario, token } from "$lib/stores/auth";
+
 </script>
 
 <svelte:head>

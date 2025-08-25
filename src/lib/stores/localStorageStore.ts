@@ -24,5 +24,16 @@ export const localStorageStore = <T>(key: string, initialValue: T): Writable<T> 
 		});
 	}
 
+	if (typeof window !== 'undefined') {
+  		window.addEventListener('storage', (event) => {
+    		if (event.key === key) {
+      			try {
+        			store.set(event.newValue ? JSON.parse(event.newValue) : initialValue);
+      			} catch {
+        			store.set(event.newValue as unknown as T);
+      			}
+    		}
+ 		});
+	}
 	return store;
   };

@@ -1,8 +1,7 @@
 <script>
-  // @ts-nocheck
-
   import Card from "$lib/components/Card.svelte";
-  import { usuario, token } from "$lib/stores/auth";
+  import { tokenLogin, usuarioLogado } from "$lib/utils/login";
+  import { hasPermission } from "$lib/utils/user/hasPermission";
   import { BASE_URL } from "../../api";
 
   let itens = [];
@@ -11,7 +10,7 @@
   async function getItens() {
     try {
       let tokenValue;
-      token.subscribe((value) => {
+      tokenLogin.subscribe((value) => {
         tokenValue = value;
       });
       // console.log(tokenValue);
@@ -33,12 +32,6 @@
     }
   }
   getItens();
-
-  $: userPermissions = $usuario?.permissoes || [];
-
-  function hasPermission(permission) {
-    return userPermissions.includes(permission);
-  }
 </script>
 
 <svelte:head>

@@ -1,14 +1,6 @@
-<script>
-  // @ts-nocheck
-
+<script lang="ts">
   import { page } from "$app/state";
-  import { usuario, token } from "$lib/stores/auth";
-
-  $: userPermissions = $usuario?.permissoes || [];
-
-  function hasPermission(permission) {
-    return userPermissions.includes(permission);
-  }
+  import { hasPermission } from "$lib/utils/user/hasPermission";
 </script>
 
 <div class="sidebar">
@@ -32,6 +24,15 @@
             : undefined}
         >
           <a href="/itens">Itens</a>
+        </li>
+      {/if}
+      {#if hasPermission("verEntidades")}
+        <li
+          aria-current={page.url.pathname.startsWith("/relacoes")
+            ? "page"
+            : undefined}
+        >
+          <a href="/relacoes">Relações</a>
         </li>
       {/if}
     </ul>

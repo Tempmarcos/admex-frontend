@@ -1,24 +1,32 @@
-<script>
+<script lang="ts">
   import Sidebar from "$lib/components/Sidebar.svelte";
   import "../../app.css";
-
   import { onMount } from "svelte";
   import { goto } from "$app/navigation";
-  import { token, usuario } from "$lib/stores/auth";
+  import { tokenLogin, usuarioLogado } from "$lib/utils/login";
+  import { get } from "svelte/store";
+  import { jwtDecode } from "jwt-decode";
 
   onMount(() => {
-    const storedToken = localStorage.getItem("token");
-    const storedUser = localStorage.getItem("usuario");
+    const storedUser = get(usuarioLogado);
+    const storedToken = get(tokenLogin);
 
     if (!storedToken || !storedUser) {
-      // Redireciona para a tela de login
-      alert("Token ausente. Retornando à tela de login");
+      // alert("Token ausente. Retornando à tela de login");
       goto("/");
-    } else {
-      // Reconfigura os stores para garantir que o estado esteja correto
-      token.set(storedToken);
-      usuario.set(JSON.parse(storedUser));
+    } 
+    try{
+      const { exp } = jwtDecode<{ exp: number }>(storedToken);
+
+      if (!exp || Date.now() >= exp * 1000) {
+        // alert("Sessão expirada. Faça login novamente.");
+        goto("/");
+      }
+    }catch(err){
+      // alert("Token inválido ou corrompido")
+      goto("/")
     }
+    
   });
 
   /** @type {{children: import('svelte').Snippet}} */

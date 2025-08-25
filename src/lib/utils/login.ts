@@ -2,7 +2,7 @@ import { goto } from "$app/navigation";
 import { localStorageStore } from "$lib/stores/localStorageStore";
 import { BASE_URL } from "../../routes/api";
 
-const usuarioLogado = localStorageStore<{
+export const usuarioLogado = localStorageStore<{
     nome: string;
     id: number;
     email: string;
@@ -20,7 +20,7 @@ const usuarioLogado = localStorageStore<{
     perfil: {},
   });
 
-  const tokenLogin = localStorageStore<string>("tokenLogin", "");
+  export const tokenLogin = localStorageStore<string>("tokenLogin", "");
  
 
   export async function login(email : string, senha: string) {
