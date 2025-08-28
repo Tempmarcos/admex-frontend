@@ -1,11 +1,12 @@
 <script lang="ts">
   import { page } from "$app/state";
+    import { loggout } from "$lib/utils/loggout";
   import { hasPermission } from "$lib/utils/user/hasPermission";
 </script>
 
 <div class="sidebar">
-  <div class="logo"></div>
   <nav>
+  <div class="logo"></div>
     <ul>
       <li aria-current={page.url.pathname === "/inicio" ? "page" : undefined}>
         <a href="/inicio">Início</a>
@@ -15,6 +16,13 @@
           aria-current={page.url.pathname === "/usuarios" ? "page" : undefined}
         >
           <a href="/usuarios">Usuários</a>
+        </li>
+      {/if}
+      {#if hasPermission('verDados')}
+        <li
+          aria-current={page.url.pathname === "/empresa" ? "page" : undefined}
+        >
+          <a href="/empresa">Empresa</a>
         </li>
       {/if}
       {#if hasPermission("verItens")}
@@ -35,9 +43,31 @@
           <a href="/relacoes">Relações</a>
         </li>
       {/if}
+      <li
+          aria-current={page.url.pathname.startsWith("/tarefas")
+            ? "page"
+            : undefined}
+        >
+          <a href="/tarefas">Tarefas</a>
+        </li>
+      {#if hasPermission("verPropostas")}
+        <li
+          aria-current={page.url.pathname.startsWith("/propostas")
+            ? "page"
+            : undefined}
+        >
+          <a href="/propostas">Propostas</a>
+        </li>
+      {/if}
     </ul>
+    <div class="suporte">
+      <ul>
+        <li>
+          <a style="cursor: pointer;" onclick={loggout}>Sair</a>
+        </li>
+      </ul>
+    </div>
   </nav>
-  <div class="suporte"></div>
 </div>
 
 <style>
@@ -49,6 +79,7 @@
     position: fixed;
     width: 15vw;
     height: 100vh;
+    box-shadow: black 0 0 15px;
   }
 
   .sidebar > * {
@@ -57,8 +88,10 @@
   }
 
   nav {
+    height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    flex-direction: column;
   }
 
   ul {
@@ -73,6 +106,7 @@
   li {
     position: relative;
     height: 100%;
+    margin-block: 5px;
   }
 
   nav a {

@@ -4,14 +4,14 @@ import { BASE_URL } from "../../routes/api";
 
 export const usuarioLogado = localStorageStore<{
     nome: string;
-    id: number;
+    id: string;
     email: string;
     permissoes: string[];
     created_at: string;
     updatedAt: string;
     perfil: object;
   }>("usuarioLogado", {
-    id: 0,
+    id: "",
     nome: "",
     email: "",
     permissoes: [],

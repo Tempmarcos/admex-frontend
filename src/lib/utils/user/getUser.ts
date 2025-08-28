@@ -1,14 +1,14 @@
-import { BASE_URL, FRONTEND_LINK } from "../../../routes/api";
+import { BASE_URL } from "../../../routes/api";
 import { tokenLogin } from "../login";
 
-export async function gerarLink() {
+export async function getUser(id : string) {
     try {
       let tokenValue;
       tokenLogin.subscribe((value) => {
         tokenValue = value;
       });
       // console.log(tokenValue);
-      const response = await fetch(BASE_URL + "convite/gerar-convite", {
+      const response = await fetch(BASE_URL + "users/" + id, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -18,12 +18,9 @@ export async function gerarLink() {
       if (!response.ok) {
         throw new Error("Erro na requisição: " + response.status);
       }
-      const dados = await response.text();
-      const link = FRONTEND_LINK + "/cadastro/user/" + dados
-      return link;
-      // console.log(dados);
+      const dados = await response.json();
+      return dados;
     } catch (error) {
       console.log(error);
-      return "Tente novamente"
     }
   }
