@@ -1,5 +1,5 @@
 <script>
-  let { width, height, children } = $props();
+  let { children } = $props();
 </script>
 
 <div class="card">

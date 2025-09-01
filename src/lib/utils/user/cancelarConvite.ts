@@ -7,7 +7,7 @@ export async function cancelarConvite(id: string) {
       tokenLogin.subscribe((value) => {
         tokenValue = value;
       });
-      const data= JSON.stringify(id) 
+      const data= JSON.stringify({ id: id }) 
       const response = await fetch(BASE_URL + "convite/cancelar-convite", {
         method: "PATCH",
         headers: {

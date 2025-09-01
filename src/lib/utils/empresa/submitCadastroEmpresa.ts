@@ -26,7 +26,7 @@ export async function submitCadastroEmpresa(){
         })
         if (!response.ok) {
             const errorData = await response.json().catch(() => null)
-            throw new Error(errorData?.message || `Erro ${response.status}: ${response.statusText}`)
+            throw new Error(errorData?.error.message || `Erro ${response.status}: ${response.statusText}`)
         }
         const data = await response.json()
         console.log("✅ Cadastro realizado com sucesso:", data)
