@@ -40,6 +40,6 @@ jobs:
       # 5. Fazer upload dos arquivos de build para o OSS
       - name: Upload to OSS
         run: |
-          ./ossutil64 cp -r ./output/prerendered/pages/ oss://${{ secrets.OSS_BUCKET }}/ --force --meta "Cache-Control:no-cache"
+          ./ossutil64 cp -r .svelte-kit/output/prerendered/pages/ oss://${{ secrets.OSS_BUCKET }}/ --force --meta "Cache-Control:no-cache"
         # --force sobrescreve arquivos existentes
         # --meta "Cache-Control:no-cache" é útil durante desenvolvimento para evitar caching intenso
