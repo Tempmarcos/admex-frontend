@@ -4,7 +4,7 @@ export async function checkEmailExists(email: string) {
         const data = JSON.stringify({
           email: email,
         });
-
+        // console.log(data)
         const response = await fetch(BASE_URL + `users/testar-email`, {
           method: "POST",
           headers: {

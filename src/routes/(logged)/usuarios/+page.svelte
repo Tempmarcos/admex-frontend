@@ -17,7 +17,7 @@
     link = await gerarLink();
   }
   async function handleMostrarConvites(){
-    mostrarConvites = true;
+    mostrarConvites == true ? mostrarConvites = false : mostrarConvites = true;
     convites = await getConvites();
     console.log(convites)
   }
@@ -68,6 +68,7 @@
     flex: 0.6;
     min-height: 100vh;
     min-width: 100vw;
+    max-width: 100vw;
     background-color: #d9d9d9;
   }
 

@@ -5,6 +5,7 @@
   import { onMount } from "svelte";
   import { hasPermission } from "$lib/utils/user/hasPermission";
   import Permissions from "$lib/components/Permissions.svelte";
+    import { deleteUser } from "$lib/utils/user/deleteUser";
   $: id = page.params.id
   let data : any = null;
   onMount(async () => {
@@ -24,7 +25,7 @@
 </svelte:head>
 
 <section>
-  <Card width="300px" height="200px">
+  <Card>
     <div class="content"> 
       <button onclick={() => handleSwitchTela("geral")} disabled={tela == 'geral'}>Geral</button>
       <button onclick={() => handleSwitchTela("permissoes")} disabled={tela == 'permissoes'}>Permissões</button>
@@ -36,11 +37,11 @@
         <p>{data?.perfil.nomeDeUsuario}</p>
         <p>{data?.created_at}</p>
         {#if hasPermission('deletarUsuarios')}
-          <button>Deletar usuário</button>
+          <button class="delete" onclick={() => deleteUser(data?.id)}>Deletar usuário</button>
         {/if}
       {/if}
       {#if tela == 'permissoes'}
-        <Permissions userPermissions={data?.permissoes}></Permissions>
+        <Permissions userPermissions={data?.permissoes} userId={data?.id} isAdmin={data?.admin}></Permissions>
       {/if}
     </div>
   </Card>
@@ -58,9 +59,28 @@
     background-color: #d9d9d9;
   }
   .content {
-    max-height: 80vh;
-    max-width: 50vw;
+    /* max-width: 50vw; */
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: column;
   }
+  .content button {
+		padding: 8px 16px;
+		border: 1px solid #ddd;
+		background: #f8f9fa;
+		border-radius: 4px;
+		cursor: pointer;
+		transition: all 0.2s;
+	}
+
+  .content .delete {
+    background: #c74433;
+  }
+  .content .delete:hover {
+    background: #9e3628;
+  }
+
+	.content button:hover {
+		background: #e9ecef;
+	}
+  
 </style>
