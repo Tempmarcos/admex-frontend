@@ -40,7 +40,7 @@ jobs:
       # 5. Fazer upload dos arquivos de build para o OSS
       - name: Upload to OSS
         run: |
-          ./ossutil64 cp -r --force .svelte-kit/output/prerendered/pages/ oss://${{ secrets.OSS_BUCKET}}/ \
+          ./ossutil64 cp -r .svelte-kit/output/prerendered/pages/ oss://${{ secrets.OSS_BUCKET}}/ --force \
           --meta "Cache-Control: no-cache, no-store, must-revalidate" \
           --meta "Content-Type: text/html; charset=utf-8":.html \
           --meta "Content-Type: text/css; charset=utf-8":.css \
