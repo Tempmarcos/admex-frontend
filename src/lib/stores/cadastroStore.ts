@@ -38,8 +38,10 @@ interface DadosGerais {
 interface DadosFiscais {
   registro: string;
   classificacao: string;
-  naturezaJuridica: string;
-  regimeTributario: string;
+  camposEspecificos: {
+    naturezaJuridica: string;
+    regimeTributario: string;
+  }
 }
 
 interface DadosFinanceiros {
@@ -104,8 +106,10 @@ export const dadosCadastro = writable<DadosCadastroType>({
   DadosFiscais: {
     registro: '',
     classificacao: '',
-    naturezaJuridica: '',
-    regimeTributario: '',
+    camposEspecificos: {
+      naturezaJuridica: '',
+      regimeTributario: ''
+    }
   },
   DadosFinanceiros: {
     contaBancaria: ''
@@ -149,8 +153,8 @@ export const validacaoCadastro = derived(
     const dadosFiscais = 
       temValor($dados.DadosFiscais.registro) &&
       temValor($dados.DadosFiscais.classificacao) &&
-      temValor($dados.DadosFiscais.naturezaJuridica) &&
-      temValor($dados.DadosFiscais.regimeTributario);
+      temValor($dados.DadosFiscais.camposEspecificos.naturezaJuridica) &&
+      temValor($dados.DadosFiscais.camposEspecificos.regimeTributario);
     
 
     const user = 

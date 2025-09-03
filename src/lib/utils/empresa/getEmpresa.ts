@@ -1,14 +1,14 @@
 import { BASE_URL } from "../../../routes/api";
 import { tokenLogin } from "../login";
 
-export async function getUser(id : string) {
+export async function getEmpresa() {
     try {
       let tokenValue;
       tokenLogin.subscribe((value) => {
         tokenValue = value;
       });
       // console.log(tokenValue);
-      const response = await fetch(BASE_URL + "users/" + id, {
+      const response = await fetch(BASE_URL + "empresa/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -22,6 +22,6 @@ export async function getUser(id : string) {
       const dados = await response.json();
       return dados;
     } catch (error : any) {
-      console.error("Erro ao pegar informação do usuário: ", error.message || error)
+      console.error("Erro ao pegar informação da empresa: ", error.message || error)
     }
   }

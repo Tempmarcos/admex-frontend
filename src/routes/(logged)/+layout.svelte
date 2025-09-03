@@ -34,25 +34,39 @@
 </script>
 
 <div class="app">
-  <main>
+  <Sidebar />
+  <main class="main-content">
     {@render children()}
   </main>
-  <Sidebar />
 </div>
 
 <style>
   .app {
     display: flex;
-    flex-direction: column;
     min-height: 100vh;
-    max-width: 100vw;
     overflow-x: hidden;
   }
 
-  main {
+  .main-content {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+    /* padding: 2rem; */
+    margin-left: 0;
+    transition: margin-left 0.3s ease;
+    overflow-x: auto;
+  }
+
+  /* No desktop, ajustar margem para o sidebar */
+  @media (min-width: 768px) {
+    .main-content {
+      margin-left: 280px; /* largura do sidebar */
+    }
+  }
+
+  /* No mobile, o conteúdo ocupa toda a largura */
+  @media (max-width: 767px) {
+    .main-content {
+      margin-left: 0;
+      padding: 1rem;
+    }
   }
 </style>

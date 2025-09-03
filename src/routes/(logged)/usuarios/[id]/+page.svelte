@@ -5,7 +5,8 @@
   import { onMount } from "svelte";
   import { hasPermission } from "$lib/utils/user/hasPermission";
   import Permissions from "$lib/components/Permissions.svelte";
-    import { deleteUser } from "$lib/utils/user/deleteUser";
+  import { deleteUser } from "$lib/utils/user/deleteUser";
+  
   $: id = page.params.id
   let data : any = null;
   onMount(async () => {

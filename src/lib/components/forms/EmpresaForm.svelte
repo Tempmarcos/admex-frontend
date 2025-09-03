@@ -31,19 +31,19 @@
                 $dadosCadastro.DadosGerais.endereco.complemento = dados.complemento;
                 if([2062, 2135, 2321, 3034, 3999, 2011, 2038].includes(dados.codigo_natureza_juridica)){
                   $natureza_selecionada = dados.codigo_natureza_juridica;
-                  $dadosCadastro.DadosFiscais.naturezaJuridica = dados.codigo_natureza_juridica;
+                  $dadosCadastro.DadosFiscais.camposEspecificos.naturezaJuridica = dados.codigo_natureza_juridica;
                 }
                 else{
                   $natureza_selecionada = "Outro";
                   $natureza_manual = dados.codigo_natureza_juridica
-                  $dadosCadastro.DadosFiscais.naturezaJuridica = dados.codigo_natureza_juridica
+                  $dadosCadastro.DadosFiscais.camposEspecificos.naturezaJuridica = dados.codigo_natureza_juridica
                 }
                 if (dados.regime_tributario != null) {
-                  $dadosCadastro.DadosFiscais.regimeTributario = dados.regime_tributario;
+                  $dadosCadastro.DadosFiscais.camposEspecificos.regimeTributario = dados.regime_tributario;
                 } else if (dados.opcao_pelo_simples) {
-                  $dadosCadastro.DadosFiscais.regimeTributario = "simples";
+                  $dadosCadastro.DadosFiscais.camposEspecificos.regimeTributario = "simples";
                 } else if (dados.opcao_pelo_mei) {
-                  $dadosCadastro.DadosFiscais.regimeTributario = "mei";
+                  $dadosCadastro.DadosFiscais.camposEspecificos.regimeTributario = "mei";
                 }
               }
           } else {
@@ -54,8 +54,8 @@
     };
 
     function trocarNatureza(){
-      if($natureza_selecionada === "Outro") $dadosCadastro.DadosFiscais.naturezaJuridica = $natureza_manual
-      else $dadosCadastro.DadosFiscais.naturezaJuridica = $natureza_selecionada
+      if($natureza_selecionada === "Outro") $dadosCadastro.DadosFiscais.camposEspecificos.naturezaJuridica = $natureza_manual
+      else $dadosCadastro.DadosFiscais.camposEspecificos.naturezaJuridica = $natureza_selecionada
     }
 </script>
 <div class="container">
@@ -118,7 +118,7 @@
       </div>
     {/if}
     <label for="regime">Regime Tributário</label>
-    <select id="regime" name="regime" bind:value={$dadosCadastro.DadosFiscais.regimeTributario} required>
+    <select id="regime" name="regime" bind:value={$dadosCadastro.DadosFiscais.camposEspecificos.regimeTributario} required>
     <option value="">Selecione</option>
     <option value="mei">MEI - Microempreendedor Individual</option>
     <option value="simples">Simples Nacional</option>

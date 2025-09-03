@@ -17,7 +17,7 @@
   }
 
 </script>
-<Card height='100%' width='400px'>
+<Card>
   <div class="containerCard">
   {#if etapa === 1}
     <AdminForm />
