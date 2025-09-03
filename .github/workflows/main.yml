@@ -1,0 +1,45 @@
+name: Deploy Svelte App to Alibaba OSS
+
+on:
+  push:
+    branches: [ main ] # Aciona o workflow no push para a branch 'main'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout do código
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Configurar Node.js (ajuste a versão se necessário)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # 3. Instalar dependências e fazer o build
+      - name: Install dependencies and build
+        run: |
+          npm ci
+          npm run build
+        # Assume que seu script de build em package.json é "build" e gera arquivos na pasta 'dist'
+
+      # 4. Baixar e configurar o ossutil
+      - name: Download and configure ossutil
+        run: |
+          curl -O https://gosspublic.alicdn.com/ossutil/1.7.16/ossutil64
+          chmod +x ossutil64
+          ./ossutil64 config \
+            -e ${{ secrets.OSS_ENDPOINT }} \
+            -i ${{ secrets.OSS_ACCESS_KEY_ID }} \
+            -k ${{ secrets.OSS_ACCESS_KEY_SECRET }}
+
+      # 5. Fazer upload dos arquivos de build para o OSS
+      - name: Upload to OSS
+        run: |
+          ./ossutil64 cp -r ./output/prerendered/pages/ oss://${{ secrets.OSS_BUCKET }}/ --force --meta "Cache-Control:no-cache"
+        # --force sobrescreve arquivos existentes
+        # --meta "Cache-Control:no-cache" é útil durante desenvolvimento para evitar caching intenso
