@@ -41,6 +41,13 @@ jobs:
       - name: Upload to OSS
         run: |
           ./ossutil64 cp -r .svelte-kit/output/prerendered/pages/ oss://${{ secrets.OSS_BUCKET }}/ --force \
-          --meta "Cache-Control:no-cache"
+          --meta "Cache-Control:no-cache" \
+          --meta "Content-Type: text/html; charset=utf-8":.html \
+          --meta "Content-Type: text/css; charset=utf-8":.css \
+          --meta "Content-Type: application/javascript":.js \
+          --meta "Content-Type: image/png":.png \
+          --meta "Content-Type: image/jpeg":.jpg,.jpeg \
+          --meta "Content-Type: image/svg+xml":.svg \
+          --meta "Content-Type: image/x-icon":.ico
         # --force sobrescreve arquivos existentes
         # --meta "Cache-Control:no-cache" é útil durante desenvolvimento para evitar caching intenso
