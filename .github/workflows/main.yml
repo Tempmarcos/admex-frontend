@@ -41,7 +41,8 @@ jobs:
       - name: Upload to OSS
         run: |
           ./ossutil64 cp -r .svelte-kit/output/prerendered/pages/ oss://${{ secrets.OSS_BUCKET }}/ --force \
-          --meta "Cache-Control:no-cache"
+          --meta "Cache-Control:no-cache" \
+          --meta "x-oss-force-download: false"
         #  --meta "Content-Type: text/html; charset=utf-8":.html
         #  --meta "Content-Type: text/css; charset=utf-8":.css \
         #  --meta "Content-Type: application/javascript":.js \
