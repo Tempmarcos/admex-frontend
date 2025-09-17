@@ -23,7 +23,7 @@
     align-items: center;
     flex: 0.6;
     min-height: 100vh;
-    min-width: 100vw;
+    /* min-width: 100vw; */
     background-color: #d9d9d9;
   }
 </style>

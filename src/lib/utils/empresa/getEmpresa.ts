@@ -20,6 +20,7 @@ export async function getEmpresa() {
           throw new Error(errorData?.error.message || `Erro ${response.status}: ${response.statusText}`)
       }
       const dados = await response.json();
+      console.log(dados)
       return dados;
     } catch (error : any) {
       console.error("Erro ao pegar informação da empresa: ", error.message || error)

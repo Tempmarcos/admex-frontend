@@ -29,7 +29,6 @@
   <title>Usuários</title>
   <meta name="description" content="Svelte demo app" />
 </svelte:head>
-
 <section>
   {#if hasPermission("criarUsuarios")}
     <div class="addUser">
@@ -58,7 +57,6 @@
     </div>
   {/each}
 </section>
-
 <style>
   section {
     display: flex;
@@ -67,18 +65,14 @@
     align-items: center;
     flex: 0.6;
     min-height: 100vh;
-    min-width: 100vw;
-    max-width: 100vw;
     background-color: #d9d9d9;
   }
-
   .userCard,
   .addUser {
     background-color: white;
     padding: 10px;
     border-radius: 15px;
   }
-
   .addUser {
     background-color: rgb(138, 138, 138);
   }

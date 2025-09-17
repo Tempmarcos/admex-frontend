@@ -3,7 +3,7 @@ import { get } from "svelte/store";
 
 export async function fetchCidades(event: any) {
     let sigla : string;
-    const estadosStore = await get(estados)
+    const estadosStore = get(estados)
     try {
       sigla = event.target.value;
     } catch {
