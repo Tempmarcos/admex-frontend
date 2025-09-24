@@ -16,7 +16,8 @@ export async function getConvites() {
         },
       });
       if (!response.ok) {
-        throw new Error("Erro na requisição: " + response.status);
+          const errorData = await response.json().catch(() => null)
+          throw new Error(errorData?.error.message || `Erro ${response.status}: ${response.statusText}`)
       }
       const dados = await response.json();
       return await dados;
