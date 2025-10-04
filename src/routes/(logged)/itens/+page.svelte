@@ -177,8 +177,11 @@
         </form>
         {:else}
         <form on:submit|preventDefault={salvarItem}>
-          <input placeholder="Nome" bind:value={novoItem.nome} required />
+          <label for="nome">Nome:</label>
+          <input placeholder="Nome" bind:value={novoItem.nome} id="nome" required />
+          <label for="descricao">Descrição:</label>
           <textarea placeholder="Descrição" bind:value={novoItem.descricao}></textarea>
+          <label for="preco">Preço:</label>
           <input type="number" step="0.01" placeholder="Preço" bind:value={novoItem.preco} />
           <button type="submit">Salvar Serviço</button>
         </form>

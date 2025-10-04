@@ -87,7 +87,7 @@
 
     <ul class="nav-menu">
       <li aria-current={page.url.pathname === "/inicio" ? "page" : undefined}>
-        <a href="/inicio">
+        <a href="/inicio" data-sveltekit-preload-data="tap">
           <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
             <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="currentColor" stroke-width="2"/>
           </svg>
@@ -97,7 +97,7 @@
       
       {#if hasPermission("verUsuarios")}
         <li aria-current={page.url.pathname === "/usuarios" ? "page" : undefined}>
-          <a href="/usuarios">
+          <a href="/usuarios" data-sveltekit-preload-data="tap">
             <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
               <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 108 0 4 4 0 00-8 0z" stroke="currentColor" stroke-width="2"/>
             </svg>
@@ -106,9 +106,9 @@
         </li>
       {/if}
       
-      {#if hasPermission('verDados')}
+      {#if hasPermission("verDados")}
         <li aria-current={page.url.pathname === "/empresa" ? "page" : undefined}>
-          <a href="/empresa">
+          <a href="/empresa" data-sveltekit-preload-data="tap">
             <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
               <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1" stroke="currentColor" stroke-width="2"/>
             </svg>
@@ -119,7 +119,7 @@
       
       {#if hasPermission("verItens")}
         <li aria-current={page.url.pathname.startsWith("/itens") ? "page" : undefined}>
-          <a href="/itens">
+          <a href="/itens" data-sveltekit-preload-data="tap">
             <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
               <path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2m4-2v4H8V2h8z" stroke="currentColor" stroke-width="2"/>
             </svg>
@@ -130,7 +130,7 @@
       
       {#if hasPermission("verEntidades")}
         <li aria-current={page.url.pathname.startsWith("/relacoes") ? "page" : undefined}>
-          <a href="/relacoes">
+          <a href="/relacoes" data-sveltekit-preload-data="tap">
             <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
               <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75M13 7a4 4 0 11-8 0 4 4 0 018 0z" stroke="currentColor" stroke-width="2"/>
             </svg>
@@ -140,7 +140,7 @@
       {/if}
       
       <li aria-current={page.url.pathname.startsWith("/tarefas") ? "page" : undefined}>
-        <a href="/tarefas">
+        <a href="/tarefas" data-sveltekit-preload-data="tap">
           <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
             <path d="M9 11l3 3 8-8M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c1.67 0 3.21.46 4.55 1.26" stroke="currentColor" stroke-width="2"/>
           </svg>
@@ -150,7 +150,7 @@
       
       {#if hasPermission("verPropostas")}
         <li aria-current={page.url.pathname.startsWith("/propostas") ? "page" : undefined}>
-          <a href="/propostas">
+          <a href="/propostas" data-sveltekit-preload-data="tap">
             <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
               <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="2"/>
             </svg>

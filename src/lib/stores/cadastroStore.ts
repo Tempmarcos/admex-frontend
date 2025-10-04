@@ -174,3 +174,5 @@ export const validacaoCadastro = derived(
     };
   }
 );
+
+export const tipoRelacao = writable<string>('');
