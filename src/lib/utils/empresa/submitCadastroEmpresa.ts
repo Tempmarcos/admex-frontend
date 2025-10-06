@@ -36,6 +36,7 @@ export async function submitCadastroEmpresa(){
     } catch (error: any){
         console.error("Erro ao cadastrar empresa: ", error.message || error)
         // alert(error.message || "Ocorreu um erro ao cadastrar.")
+        throw error;
     }
     
 }

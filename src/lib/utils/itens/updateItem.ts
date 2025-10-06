@@ -24,5 +24,6 @@ export async function updateItem(tipo: string, id: string, item: any) {
       return dados;
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }

@@ -23,5 +23,6 @@ export async function getItens(tipo: string) {
       return await dados.sort((a: any, b: any) => a.nome.localeCompare(b.nome));
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }

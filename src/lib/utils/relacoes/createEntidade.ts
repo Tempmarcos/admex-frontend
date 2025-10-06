@@ -25,5 +25,6 @@ export async function createEntidade(tipo: string, entidade: any) {
       return await dados;
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }

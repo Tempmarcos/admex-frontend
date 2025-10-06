@@ -23,5 +23,6 @@ export async function getItem(tipo: string, id: string) {
       return dados;
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }

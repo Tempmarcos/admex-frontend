@@ -24,5 +24,6 @@ export async function createItem(tipo: string, item: any) {
       return await dados;
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }

@@ -24,5 +24,6 @@ export async function updateEntidade(tipo: string, id: string, entidade: any) {
       return dados;
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }

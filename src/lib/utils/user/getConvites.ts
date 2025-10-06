@@ -23,5 +23,6 @@ export async function getConvites() {
       return await dados;
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }

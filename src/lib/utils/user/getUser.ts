@@ -23,5 +23,6 @@ export async function getUser(id : string) {
       return dados;
     } catch (error : any) {
       console.error("Erro ao pegar informação do usuário: ", error.message || error)
+      throw error;
     }
   }

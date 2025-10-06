@@ -1,7 +1,6 @@
 export interface GetEntidade {
     id: string;
     nome: string;
-    empresaId: string;
     contato: {
         nome: string;
         cargo: string;
@@ -19,11 +18,6 @@ export interface GetEntidade {
             complemento: string;
         }
     };
-    propostas?: {
-        id: string;
-        status: string;
-        titulo: string;
-    }[];
     dadosFinanceiros?: {
         banco: string;
         agencia: string;
@@ -34,9 +28,7 @@ export interface GetEntidade {
 }
 
 export interface CreateEntidade {
-    id: string;
     nome: string;
-    empresaId: string;
     contato: {
         nome: string;
         cargo: string;
@@ -52,11 +44,6 @@ export interface CreateEntidade {
         numero: string;
         complemento: string;
     };
-    propostas?: {
-        id: string;
-        status: string;
-        titulo: string;
-    }[];
     dadosFinanceiros?: {
         banco: string;
         agencia: string;

@@ -34,6 +34,7 @@ export async function submitCadastroUser(token: string){
     } catch (error: any){
         console.error("Erro ao cadastrar usuário: ", error.message || error)
         // alert(error.message || "Ocorreu um erro ao cadastrar.")
+        throw error;
     }
     
 }

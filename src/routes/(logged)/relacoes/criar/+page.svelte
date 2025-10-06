@@ -11,7 +11,7 @@
 
     let tipoSelecionado: 'cliente' | 'fornecedor' = 'cliente';
     let loading = false;
-    let erro = '';
+    let mensagem = writable('');
     $: erroCep = $cepInputErro;
     let debounceTimeout: number | undefined;
 
@@ -111,12 +111,12 @@
 
     async function criarEntidade() {
         if (!$formData.nome.trim()) {
-            erro = 'Nome é obrigatório';
+            $mensagem = 'Erro: Nome é obrigatório';
             return;
         }
 
         loading = true;
-        erro = '';
+        $mensagem = '';
 
         try {
             // Prepara os dados baseado no tipo
@@ -133,11 +133,9 @@
             }
 
             const novaEntidade = await createEntidade(tipoSelecionado, dadosParaEnviar);
-            
-            // Redireciona para a página da entidade criada ou para a lista
-            // goto(`/relacoes`);
+            goto(`/relacoes`);
         } catch (err) {
-            erro = 'Erro ao criar relação. Tente novamente.';
+            $mensagem = 'Erro ao criar relação. Tente novamente.';
             console.error(err);
         } finally {
             loading = false;
@@ -163,11 +161,6 @@
     <div class="header">
         <h1>Criar Nova Relação</h1>
     </div>
-
-    {#if erro}
-        <div class="erro">{erro}</div>
-    {/if}
-
     <form on:submit|preventDefault={criarEntidade}>
         <div class="secao">
             <h2>Tipo de Relação</h2>
@@ -269,7 +262,7 @@
                 </select>
             </label>
             <label for="cidade">
-                Cidade
+                Cidade:
                 <select name="cidade" id="cidade" required bind:value={$formData.endereco.cidade}>
                 <option value="">Selecione</option>
                 {#each $cidades as cidade}
@@ -278,15 +271,15 @@
                 </select>
             </label>
             <label for="logradouro">
-                Logradouro
+                Logradouro:
                 <input type="text" name="logradouro" id="logradouro" required bind:value={$formData.endereco.logradouro}/>
             </label>
             <label for="numero">
-                Número
+                Número:
                 <input type="text" id="numero" name="numero" required bind:value={$formData.endereco.numero}/>
             </label>
             <label for="complemento">
-                Complemento
+                Complemento:
                 <input type="text" name="complemento" id="complemento" bind:value={$formData.endereco.complemento}/>
             </label>
         </div>
@@ -347,6 +340,11 @@
                 Cancelar
             </button>
         </div>
+        {#if $mensagem}
+            <div class="message" class:success={$mensagem.includes('sucesso')} class:error={$mensagem.includes('Erro')}>
+                {$mensagem}
+            </div>
+        {/if}
     </form>
 </div>
 </section>
@@ -428,14 +426,24 @@
         background-color: #5a6268;
     }
 
-    .erro {
-        color: #d32f2f;
-        background-color: #ffebee;
-        padding: 12px;
-        border-radius: 4px;
-        margin-bottom: 20px;
-        border: 1px solid #f5c6cb;
-    }
+    .message {
+		padding: 12px;
+		border-radius: 4px;
+		margin-bottom: 15px;
+		font-weight: 500;
+	}
+
+	.message.success {
+		background: #d4edda;
+		color: #155724;
+		border: 1px solid #c3e6cb;
+	}
+
+	.message.error {
+		background: #f8d7da;
+		color: #721c24;
+		border: 1px solid #f5c6cb;
+	}
 
     h2 {
         color: #333;

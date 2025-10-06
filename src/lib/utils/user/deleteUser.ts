@@ -23,6 +23,7 @@ export async function deleteUser(id: string){
 
     } catch (error: any){
         console.error("Erro ao deletar usuário: ", error.message || error)
+        throw error;
         // alert(error.message || "Ocorreu um erro ao cadastrar.")
     }
     

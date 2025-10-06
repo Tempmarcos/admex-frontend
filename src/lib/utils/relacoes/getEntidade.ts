@@ -23,5 +23,6 @@ export async function getEntidade(tipo: string, id: string) {
       return dados;
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
