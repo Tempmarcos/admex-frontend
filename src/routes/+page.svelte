@@ -16,7 +16,7 @@
 </script>
 
 <main>
-  <Card height='100%' width='100%'>
+  <Card>
     <div class="form">
       <h1>Admex</h1>
       <form on:submit={handleSubmit}>
@@ -32,7 +32,7 @@
         />
         <label for="password">Senha</label>
         <button type="submit">Enviar</button>
-        <em>Não tem conta? Faça seu <a href="/cadastro">cadastro</a></em>
+        <em>Não tem conta? Faça seu <a href="/cadastro" data-sveltekit-preload-data="tap">cadastro</a></em>
       </form>
     </div>
   </Card>
