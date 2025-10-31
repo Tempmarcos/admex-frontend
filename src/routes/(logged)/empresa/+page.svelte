@@ -4,7 +4,7 @@
   import { usuarioLogado } from "$lib/utils/login";
   import { onDestroy, onMount } from "svelte";
   import { writable } from "svelte/store";
-  import '$lib/styles/form.css'
+  //import '$lib/styles/form.css'
   import { updateDadosFiscais } from "$lib/utils/empresa/updateDadosFiscais";
   import { updateDadosGerais } from "$lib/utils/empresa/updateDadosGerais";
   import { fetchCidades } from "$lib/utils/empresa/fetchCidades";
@@ -270,6 +270,11 @@ let messageDadosFiscais = writable('')
 
 <style>
   section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-block: 10px;
     flex: 0.6;
     min-height: 100vh;
     background-color: #d9d9d9;
@@ -302,4 +307,46 @@ let messageDadosFiscais = writable('')
 		color: #721c24;
 		border: 1px solid #f5c6cb;
 	}
+  select {
+    padding: 5px;
+    max-width: 200px;
+  }
+  button {
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    background-color: chartreuse;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  button:disabled {
+    filter: grayscale(0.5);
+  }
+  button:hover {
+    background-color: rgb(89, 176, 1);
+  }
+  .container {
+    height: 100%;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .container form {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
+  form input,
+  form select {
+    margin-bottom: 10px;
+  }
+  form div {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    margin-bottom: 10px;
+  }
 </style>

@@ -1,13 +1,14 @@
 <script lang="ts">
+    import AddButton from "$lib/components/buttons/AddButton.svelte";
   import Card from "$lib/components/Card.svelte";
   import ItemCard from "$lib/components/ItemCard.svelte";
   import { createItem } from "$lib/utils/itens/createItem";
-    import { deleteItem } from "$lib/utils/itens/deleteItem";
+  import { deleteItem } from "$lib/utils/itens/deleteItem";
   import { getItem } from "$lib/utils/itens/getItem";
   import { getItens } from "$lib/utils/itens/getItens";
-    import { updateItem } from "$lib/utils/itens/updateItem";
+  import { updateItem } from "$lib/utils/itens/updateItem";
   import { usuarioLogado } from "$lib/utils/login";
-    import { hasPermission } from "$lib/utils/user/hasPermission";
+  import { hasPermission } from "$lib/utils/user/hasPermission";
   import { onMount } from "svelte";
   
 
@@ -99,7 +100,7 @@
 
 <section>
   {#if hasPermission('adicionarItens')}
-    <button class="add-btn" on:click={() => (showModal = true)}>+ Novo Item</button>
+    <AddButton onClick={() => showModal = true} texto={'+ Novo Item'}></AddButton>
   {/if}
   <div>
     <h1>Produtos:</h1>
@@ -212,20 +213,6 @@
     gap: 1rem;
     width: 100%;
     max-width: 1000px;
-  }
-
-  .add-btn {
-    background: #0077ff;
-    color: white;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .add-btn:hover {
-    background: #005fcc;
   }
 
   .modal-backdrop {

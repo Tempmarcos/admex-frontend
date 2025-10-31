@@ -1,15 +1,15 @@
 import { BASE_URL } from "../../../routes/api";
 import { tokenLogin } from "../login";
 
-export async function createEntidade(tipo: string, entidade: any) {
+export async function createTarefa(tarefa: any) {
     try {
       let tokenValue;
       tokenLogin.subscribe((value) => {
         tokenValue = value;
       });
-      const data = JSON.stringify(entidade)
-      // console.log(data)
-      const response = await fetch(BASE_URL + "entidade/" + tipo, {
+      const data = JSON.stringify(tarefa)
+      console.log(data)
+      const response = await fetch(BASE_URL + "tarefa", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

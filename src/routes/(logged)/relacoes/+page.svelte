@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
+    import AddButton from "$lib/components/buttons/AddButton.svelte";
   import RelacaoCard from "$lib/components/forms/RelacaoCard.svelte";
   import { tipoRelacao } from "$lib/stores/cadastroStore";
   import { getEntidades } from "$lib/utils/relacoes/getEntidades";
@@ -37,7 +38,7 @@
 
 <section>
   {#if hasPermission('adicionarItens')}
-    <button class="add-btn" onclick={() => goto('/relacoes/criar')}>+ Nova relação</button>
+    <AddButton onClick={goto('/relacoes/criar')} texto={'+ Nova Relação'}></AddButton>
   {/if}
   <div>
     <h1>Clientes:</h1>
@@ -87,19 +88,5 @@
     gap: 1rem;
     width: 100%;
     max-width: 1000px;
-  }
-
-  .add-btn {
-    background: #0077ff;
-    color: white;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .add-btn:hover {
-    background: #005fcc;
   }
 </style>
