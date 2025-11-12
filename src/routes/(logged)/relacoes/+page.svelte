@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-    import AddButton from "$lib/components/buttons/AddButton.svelte";
+  import AddButton from "$lib/components/buttons/AddButton.svelte";
   import RelacaoCard from "$lib/components/forms/RelacaoCard.svelte";
   import { tipoRelacao } from "$lib/stores/cadastroStore";
   import { getEntidades } from "$lib/utils/relacoes/getEntidades";

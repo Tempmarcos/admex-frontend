@@ -1,15 +1,15 @@
 import { BASE_URL } from "../../../routes/api";
 import { tokenLogin } from "../login";
 
-export async function getPropostas() {
+export async function deleteProposta(id: string) {
     try {
       let tokenValue;
       tokenLogin.subscribe((value) => {
         tokenValue = value;
       });
       // console.log(tokenValue);
-      const response = await fetch(BASE_URL + "proposta", {
-        method: "GET",
+      const response = await fetch(BASE_URL + "proposta" + "/" + id, {
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${tokenValue}`,

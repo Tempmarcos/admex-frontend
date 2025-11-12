@@ -1,14 +1,14 @@
 import { BASE_URL } from "../../../routes/api";
 import { tokenLogin } from "../login";
 
-export async function getPropostas() {
+export async function getProposta(id: string) {
     try {
       let tokenValue;
       tokenLogin.subscribe((value) => {
         tokenValue = value;
       });
       // console.log(tokenValue);
-      const response = await fetch(BASE_URL + "proposta", {
+      const response = await fetch(BASE_URL + "proposta" + "/" + id ,{
         method: "GET",
         headers: {
           "Content-Type": "application/json",
