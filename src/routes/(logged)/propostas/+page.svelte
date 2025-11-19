@@ -19,19 +19,20 @@
   let novaProposta = {
     clienteId: "",
     status: "",
+    tituloProjeto: "",
     descricao: "",
   };
 
   function closeModal(){
     showModal = false;
-    novaProposta = { clienteId: "", status: "", descricao: ""};
+    novaProposta = { clienteId: "", status: "", descricao: "", tituloProjeto: ""};
   }
 
   async function salvarProposta() {
     await createProposta(novaProposta);
     propostas.set(await getPropostas());
     showModal = false;
-    novaProposta = { clienteId: "", status: "", descricao: ""};
+    novaProposta = { clienteId: "", status: "", descricao: "", tituloProjeto: ""};
   }
 
   onMount(async () => {
@@ -69,12 +70,16 @@
             {/each}
           </select>
         </label>
-            <label for="descricao">
-              Descrição:
-              <textarea placeholder="Descrição" bind:value={novaProposta.descricao}></textarea>
-            </label>
-            <button type="submit">Salvar Tarefa</button>
-          </form>
+        <label for="tituloProjeto">
+          Título do projeto:
+          <input placeholder="Título" type="text" bind:value={novaProposta.tituloProjeto}>
+        </label>
+        <label for="descricao">
+          Descrição:
+          <textarea placeholder="Descrição" bind:value={novaProposta.descricao}></textarea>
+        </label>
+        <button type="submit">Salvar Proposta</button>
+      </form>
     </div>
   {/if}
 </section>
