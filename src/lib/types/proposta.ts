@@ -52,7 +52,7 @@ export type CreateRevisao = {
     propostaId: string;
     dataProposta: string;
     valorTotal: any;
-    itens: Omit<ItemProposta, 'id'>[]
+    itens: (Omit<ItemProposta, 'id'> & {novoItem?: boolean})[]
 }
 
 export type UpdateRevisao = {
